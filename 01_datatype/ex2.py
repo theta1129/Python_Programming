@@ -15,7 +15,14 @@ print(ord("A"), chr(65))
 x = 10 ** 100
 print(x)
 
-# int 데이터가 커졌다가 작아지면 메모리 어떻게 됨? -> 
+# int 데이터가 커졌다가 작아지면 메모리 어떻게 됨? -> reference count를 두고 메모리가 줄어들면 reference count가 줄어들어서 reference count가 0이 되면 할당이 사라짐; 줄어든 부분은 다른 곳에서 사용할 수 있음!
+# 뒤쪽에 할당된 메모리가 이미 있으면 할당된 공간을 이동해서 저장함!
+k = 100
+kk = 10
+print(id(kk))
+kk = 10e200
+print(id(kk))
+
 
 # 오버플로우 안 남
 a = 2 ** 31 - 1
@@ -57,3 +64,4 @@ print(float(10))
 print(int(3.14))
 print(int("100"))
 print(float("3.14"))
+print(str(10))
