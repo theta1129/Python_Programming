@@ -79,7 +79,6 @@ print(next(it))             # 인덱스 2을 반환하고, 다음 위치(인덱�
 print(next(it))             # 인덱스 3을 반환하고, 다음 위치(인덱스 4)로 이동
 print(next(it))             # 인덱스 4을 반환하고, 다음 위치(인덱스 5)로 이동
 print(next(it))             # 인덱스 5을 반환하고, 다음 위치(인덱스 6)로 이동
-print(next(it))             # 인덱스 6을 반환하고, 다음 위치(인덱스 7)로 이동
 # print(next(it))           # s 길이 넘어가면 StopIteration 에러!
 
 
