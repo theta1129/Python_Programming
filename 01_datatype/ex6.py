@@ -75,7 +75,13 @@ print()
 it = iter(s)                # 문자열(Iterable)에 iter()를 호출하면 Iterator 객체가 생성됨
 print(next(it))             # 인덱스 0을 반환하고, 다음 위치(인덱스 1)로 이동
 print(next(it))             # 인덱스 1을 반환하고, 다음 위치(인덱스 2)로 이동
-# s 길이 넘어가면 StopIteration 에러!
+print(next(it))             # 인덱스 2을 반환하고, 다음 위치(인덱스 3)로 이동
+print(next(it))             # 인덱스 3을 반환하고, 다음 위치(인덱스 4)로 이동
+print(next(it))             # 인덱스 4을 반환하고, 다음 위치(인덱스 5)로 이동
+print(next(it))             # 인덱스 5을 반환하고, 다음 위치(인덱스 6)로 이동
+print(next(it))             # 인덱스 6을 반환하고, 다음 위치(인덱스 7)로 이동
+# print(next(it))           # s 길이 넘어가면 StopIteration 에러!
+
 
 # 같은 Iterable 데이터 타입인 리스트로 변환 가능
 print(list(s))
