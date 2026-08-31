@@ -119,7 +119,8 @@ print(a[::-1])                      # nohtyP 출력 (step이 음수이면 처음
 print(a[0:6:-1])                    # 출력 안 됨 (step이 음수이면 start가 end보다 커야 함)
 print(a[5:1:-1])                    # noht 출력
 print(a[-1:-5:-1])                  # noht 출력
-print(a[5:-7:-1])                   # nohtyP 출력: 왜 두 번 출력 안 됨?
+print(a[5:-7:-1])                   # nohtyP 출력: 왜 두 번 출력 안 됨? -> 시작과 끝을 찾아서 한번에 잘라서 그럼!
+
 
 # 인덱싱과 슬라이싱 차이
 # print(a[100])                     # IndexError
