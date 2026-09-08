@@ -174,13 +174,17 @@ print(result)                       # ✅ ['합격', '불합격', '합격', '불
 
 # 3️⃣ 1 ~ 100 중 3 또는 5의 배수의 합 구하기 (sum() 함수 이용)
 result = sum([i for i in range(1, 101) if i % 3 == 0 or i % 5 == 0])
+print(result)
+result = sum([i for i in range(1, 101) if not i % 3 or not i % 5])
 print(result)                       # ✅ 2418 출력
 
 
 # 4️⃣ n을 포함하고 있는 단어만 뽑기
 words = ["apple", "banana", "kiwi", "mango"]
 
-result = [i for i in words if 'n' in i]  
+result = [i for i in words if 'n' in i]
+result = [i for i in words if i.count('n')]
+result = [i for i in words if i.find('n') >= 0]
 print(result)                       # ✅ ['banana', 'mango'] 출력
 
 
@@ -191,5 +195,15 @@ scores = [
     [80, 70, 60],       # 학생 3
 ]
 
+result = [sum(i) / len(i) for i in zip(*scores)]
+print(result)
 result = [sum(i[j] for i in scores) / len(scores) for j in range(len(scores[0]))]
 print(result)                       # ✅ [90.0, 80.0, 70.0]
+
+
+# 파이썬은 5사 5입..
+# 은행가 반올림 (banker's rounding)
+print(round(0.5))
+print(round(1.5))
+print(round(2.5))
+print(round(3.5))
