@@ -84,13 +84,19 @@ print({i[0]: i[1] for i in scores.items() if i[1] >= 90})
 words = ["apple", "banana", "apple", "cherry", "banana", "apple"]
 
 
-
+# 1_Dict 컴프리헨션
 print({i: words.count(i) for i in words})                                    # ✅ {'apple': 3, 'banana': 2, 'cherry': 1}
+print({i: words.count(i) for i in set(words)})                                    # ✅ {'apple': 3, 'banana': 2, 'cherry': 1}
 
+# 2_클래식 for
 count = {}
 for word in words:
     count[word] = count.get(word, 0) + 1
 print(count)
+
+# 3_Counter : 요소 개수를 자동으로 세어주는 딕셔너리 서브클래스
+from collections import Counter
+print(dict(Counter(words)))
 
 
 # 2️⃣ 60점 이상인 경우 합격 설정하기
@@ -113,5 +119,14 @@ print({k: v for k, v in zip(subjects, grades)})                                 
 stock = {"연필": 10, "지우개": 5, "노트": 3}        # 기존 재고
 incoming = {"지우개": 4, "노트": 7, "볼펜": 12}     # 입고 내역
 
+# 1_클래식 for
+# for item, qty in incoming.items():
+#     stock[item] = stock.get(item, 0) + qty
+# print(stock)
+
+# 2_Dict 컴프리헨션
+# stock.update({item:stock[item] + qty if item in stock else qty for item, qty in incoming.items()})
+# stock.update({k: stock.get(k, 0) + incoming[k] for k in incoming})                                    # ✅ {'연필': 10, '지우개': 9, '노트': 10, '볼펜': 12}
+# print(stock)
 print({**stock, **{k: stock[k] + incoming[k] if k in stock else incoming[k] for k in incoming}})                                    # ✅ {'연필': 10, '지우개': 9, '노트': 10, '볼펜': 12}
 print({**stock, **{k: stock.get(k, 0) + incoming[k] for k in incoming}})                                    # ✅ {'연필': 10, '지우개': 9, '노트': 10, '볼펜': 12}
