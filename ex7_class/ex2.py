@@ -2,12 +2,12 @@
 
 # ===========================================================
 #  1. 상속이란?
-#  - (  )의 속성과 메소드를 (  )가 물려받는 것
+#  - ( 부모 클래스 )의 속성과 메소드를 ( 자식 클래스 )가 물려받는 것
 #
 #  - 부모 클래스 = 상위 클래스 = 슈퍼 클래스 = 기반 클래스
 #  - 자식 클래스 = 하위 클래스 = 서브 클래스 = 파생 클래스
 #
-#  - 관계 표현: (  )
+#  - 관계 표현: ( is-a 관계 )
 #    예) 강아지는 동물이다 (Dog is-a Animal)
 #        학생은 사람이다 (Student is-a Person)
 # ===========================================================
@@ -17,18 +17,38 @@
 #  2. 상속이 필요한 이유
 # ===========================================================
 
+class Dog:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
+    def eat(self):
+        print(f"{self.name}이(가) 밥을 먹습니다.")
+
+    def bark(self):
+        print(f"{self.name}: 멍멍")
+
+class Cat:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+    def eat(self):
+        print(f"{self.name}이(가) 밥을 먹습니다.")
+
+    def meow(self):
+        print(f"{self.name}: 야옹")
 
 
 # 위 코드의 문제점은?
-# - (  ) -> 유지 보수가 어려워짐
+# - ( 중복 코드 ) -> 유지 보수가 어려워짐
 # - 공통 부분은 부모 클래스에 한 번만 작성하고, 자식들이 물려받자!
 
 # ===========================================================
 #  상속의 장점
-#  - (  ) : 공통 코드를 부모에 한 번만 작성
-#  - (  ) : 부모만 고치면 모든 자식에 반영됨
-#  - (  ) : 새로운 자식 클래스를 쉽게 추가할 수 있음
+#  - ( 코드 재사용 ) : 공통 코드를 부모에 한 번만 작성
+#  - ( 유지보수 편리 ) : 부모만 고치면 모든 자식에 반영됨
+#  - ( 확장성 ) : 새로운 자식 클래스를 쉽게 추가할 수 있음
 # ===========================================================
 
 
@@ -38,19 +58,44 @@
 #  - 공통 부분을 Animal 부모 클래스로 분리
 # ===========================================================
 
+class Animal:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
 
+    def eat(self):
+        print(f"{self.name}가 밥을 먹습니다.")
+
+class Dog(Animal):
+    def bark(self):
+        print(f"{self.name}: 멍멍")
+
+class Cat(Animal):
+    def meow(self):
+        print(f"{self.name}: 야옹")
 
 
 # 부모의 속성/메소드를 그대로 물려받음
 # 자식만의 새로운 속성/메소드 추가 가능
+d = Dog("멍멍이", 5) # Animal.__init__() 호출
+print(d.name, d.age)
+d.eat()
+d.bark()
 
-
+c = Cat("야옹이", 3)
+print(c.name, c.age)
+c.eat()
+c.meow()
 
 # 어떤 클래스의 객체인지 확인하기
-
+print(isinstance(d, Dog))
+print(isinstance(c, Cat))
+print(isinstance(d, Animal))
+print(isinstance(d, Cat))
 
 # 상속 관계 확인하기
-
+print(issubclass(Dog, Animal))
+print(issubclass(Cat, Animal))
 
 
 # 모든 클래스는 최상위 부모인 (  ) 클래스를 자동으로 상속받는다.
