@@ -64,83 +64,143 @@ print(type("hi"), isinstance("hi", str))
 print(type([]), isinstance([], list))
 
 # 빈 객체에 속성 추가 (비권장)
+d1.name = "iaMdOG"
+d2.name = "iaMdOG2"
 
+print(d1.name, d2.name)
 
 # 객체를 만들 때 필요한 속성을 자동으로 세팅해주는 메소드를 만들자! -> 생성자
 
 
 # ===========================================================
 #  5. 생성자 (Constructor)
-#  - 객체가 생성될 때 (  )되는 특별한 메소드
-#  - 이름은 반드시 (  )
-#  - 객체가 가져야 하는 속성의 (  )을 설정하는 데 사용
+#  - 객체가 생성될 때 ( 자동으로 호출 )되는 특별한 메소드
+#  - 이름은 반드시 ( __init__ )
+#  - 객체가 가져야 하는 속성의 ( 초기값 )을 설정하는 데 사용
 # ===========================================================
 
+class Dog:
+    def __init__(self):
+        print("생성자 호출")
+        print(self)
 
-
+d1 = Dog() # __init__() 함수 자동 호출됨
+print(d1) # __init__() 함수 안의 self와 같은 객체
 
 # ===========================================================
 #  6. self와 인스턴스 변수
-#  - self: 메소드를 호출한 (  )을 가리키는 변수 (관례적 이름)
+#  - self: 메소드를 호출한 ( 객체 자기 자신 )을 가리키는 변수 (관례적 이름)
 #  - 인스턴스 변수: 각 객체가 개별적으로 가지는 독립적인 변수
 #  - 객체명.변수명(클래스 밖), self.변수명으로 접근(클래스 내)
-#  -> 인스턴스 변수는 반드시 (  )를 생성한 후 사용 가능
+#  -> 인스턴스 변수는 반드시 ( 객체 )를 생성한 후 사용 가능
 # ===========================================================
 
+class Dog:
+    # 생성자의 역할 : 객체를 초기화
+    # 인스턴스 변수 초기화, 객체 생성 시 실행해야 하는 로직 구현 및 호출 ( 파일 로드, DB Conn 설정)
+    def __init__(self, name, age):
+        self.name = name # 인스턴스변수 = 매개변수
+        if age < 0:
+            self.age = 0
+        else:
+            self.age = age
 
+    def bark(self):
+        print(f"{self.name} barks: Woof!")
+
+    def introduce(self):
+        print(f"Howdy! I'm {self.name}, and I'm {self.age} years old.")
+
+d1 = Dog("iaMdOG", 10)
+print(d1.name, d1.age) # iaMdOG, 10
+
+d2 = Dog("iaMdOG2", 5)
+print(d2.name, d2.age) # iaMdOG2, 5
+
+d1.name = "iaMdOG3"
+print(d1.name, d2.name) # iaMdOG3 iaMdOG2
 
 
 # ===========================================================
 #  7. 인스턴스 메소드
 #  - 인스턴스 변수에 접근하거나 다른 인스턴스 메소드를 호출할 수 있다.
-#  - 모든 인스턴스 메소드의 첫 번째 매개변수는 (  )로 작성한다.
+#  - 모든 인스턴스 메소드의 첫 번째 매개변수는 ( self )로 작성한다.
 # ===========================================================
 
 # 인스턴스 메소드 호출
-
+d1.bark()
+d1.introduce()
+d2.bark()
+d2.introduce()
 
 
 # ===========================================================
 #  8. 클래스 변수
-#  - 객체가 아닌 클래스에 소속되어 모든 객체가 (  )하는 변수
+#  - 객체가 아닌 클래스에 소속되어 모든 객체가 ( 공유 )하는 변수
 #  - 클래스 내부의 메소드 밖에 선언
-#  - (  )으로 접근 (객체명.변수명으로도 읽을 수는 있으나 비권장)
+#  - ( 클래스명.변수명 )으로 접근 (객체명.변수명으로도 읽을 수는 있으나 비권장)
 #
 #  (중요) 인스턴스 변수 vs 클래스 변수
 #  - 인스턴스 변수 : self.변수명 / 객체마다 다른 값
 #  - 클래스 변수   : 클래스명.변수명 / 모든 객체가 같은 값 공유
 # ===========================================================
 
+class Dog:
 
+    species = "dog"
+    count = 0
+
+    def __init__(self, name, age):
+        Dog.count += 1
+        self.name = name # 인스턴스변수 = 매개변수
+        if age < 0:
+            self.age = 0
+        else:
+            self.age = age
+
+    # 클래스 메소드
+    # 데코레이터: 기존 함수를 직접 수정하지 않고 함수에 기능을 추가하는 방법
+    @classmethod
+    def show_count(cls): # cls에 클래스가 들어옴!
+        # print(cls) # <class '__main__.Dog'>
+        print(f"현재 {cls.species}는 총 {cls.count}마리입니다.") # Dog.count도 되지만 유연성(상속에서) 때문에 cls 권장!
 
 
 # 객체 생성 없이도 클래스 변수 사용 가능
+print(Dog.species)
 
-
+d1 = Dog("iaMdOG1", 10)
+d2 = Dog("iaMdOG2", 5)
 
 # 클래스 변수를 바꾼 경우 아래 결과는?
-
-
+Dog.species = "puppy"
+print(Dog.species)
+print(d1.species)
+print(d2.species) # 다 바뀜!
+Dog.species = "dog"
 
 # 주의) 객체를 사용하여 클래스 변수의 값을 변경한다면?
 # -> 클래스 변수가 바뀌는 게 아니라, 그 객체에 같은 이름의 인스턴스 변수가 새로 생긴다.
 # -> 클래스 변수는 클래스명.변수명으로 사용하기
-
+d1.species = "puppy"
+print(d1.species) # puppy; 새로운 인스턴스 변수 생김
+print(d2.species) # dog; 안 바뀜!
 
 
 # Dog 클래스로 만든 전체 객체 수 세기
+print(Dog.count) # 2
 
 
 # 클래스 메소드 호출: 클래스명.메소드명
-
+Dog.show_count()
 
 
 # ===========================================================
 # 문제)
-#  1. 클래스 메소드에서 self를 쓸 수 있을까? (  )
+#  1. 클래스 메소드에서 self를 쓸 수 있을까? ( X )
 #  2. 메소드에서 변수 접근 허용 범위
-#   - 인스턴스 메소드에서 인스턴스 변수 사용 (  ), 클래스 변수 사용 (  )
-#   - 클래스 메소드에서 인스턴스 변수 사용 (  ), 클래스 변수 사용 (  )
+#   - 인스턴스 메소드에서 인스턴스 변수 사용 ( 가능 ), 클래스 변수 사용 ( 가능 )
+#   - 클래스 메소드에서 인스턴스 변수 사용 ( 불가 ), 클래스 변수 사용 ( 가능 )
 # ===========================================================
 
 
@@ -150,7 +210,24 @@ print(type([]), isinstance([], list))
 
 # Student Class 작성하기
 class Student:
-    pass
+
+    count = 0
+    school = "디미고"
+    
+    def __init__(self, num, name):
+        Student.count += 1
+        self.num = num
+        self.name = name
+    
+    def introduce(self):
+        print(f"저는 {self.num} {self.name} 입니다.")
+
+    def introduce2(self):
+        print(f"저는 {self.school}에 재학 중인 {self.num} {self.name} 입니다.")
+
+    @classmethod
+    def get_std_cnt(cls):
+        return cls.count
 
 
 # 1️⃣ 인스턴스 변수: num(학번), name(이름) -> 생성자 구현
@@ -158,22 +235,22 @@ class Student:
 
 # 2️⃣ 객체 생성: 생성자 호출
 
-# s1 = Student(1301, "뽀로로")
-# s2 = Student(1401, "크롱")
+s1 = Student(1301, "뽀로로")
+s2 = Student(1401, "크롱")
 
 
 # 3️⃣ 인스턴스 메소드: introduce() 구현
 
-# s1.introduce()                  # 저는 1301 뽀로로 입니다.
-# s2.introduce()                  # 저는 1401 크롱 입니다.
+s1.introduce()                  # 저는 1301 뽀로로 입니다.
+s2.introduce()                  # 저는 1401 크롱 입니다.
 
 
 # 4️⃣ 클래스 변수: school = "디미고" 추가 -> 인스턴스 메소드: introduce2() 구현
 
-# s1.introduce2()                 # 저는 디미고에 재학중인 1301 뽀로로 입니다.
-# s2.introduce2()                 # 저는 디미고에 재학중인 1401 크롱 입니다.
+s1.introduce2()                 # 저는 디미고에 재학 중인 1301 뽀로로 입니다.
+s2.introduce2()                 # 저는 디미고에 재학 중인 1401 크롱 입니다.
 
 
 # 5️⃣ 클래스 메소드: get_std_cnt() 구현 (총 학생 수 리턴)
 
-# print(f"총 학생 수: {Student.get_std_cnt()}명")   # 총 학생 수: 2명
+print(f"총 학생 수: {Student.get_std_cnt()}명")   # 총 학생 수: 2명
