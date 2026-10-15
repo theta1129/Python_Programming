@@ -88,6 +88,7 @@ c.eat()
 c.meow()
 
 # 어떤 클래스의 객체인지 확인하기
+<<<<<<< HEAD
 print(isinstance(d, Dog)) # True
 print(isinstance(c, Cat)) # True
 print(isinstance(d, Animal)) # True
@@ -101,6 +102,16 @@ print(issubclass(Cat, Animal)) # True
 print(Dog.__bases__) # 해당 클래스의 모든 부모 클래스 반환
 print(Dog.__base__)
 print(Animal.__bases__)
+=======
+print(isinstance(d, Dog))
+print(isinstance(c, Cat))
+print(isinstance(d, Animal))
+print(isinstance(d, Cat))
+
+# 상속 관계 확인하기
+print(issubclass(Dog, Animal))
+print(issubclass(Cat, Animal))
+>>>>>>> cf7cb2247ff5a3bbb3b0d55f8fa96a27062e86de
 
 # 모든 클래스는 최상위 부모인 ( object ) 클래스를 자동으로 상속받는다.
 object
